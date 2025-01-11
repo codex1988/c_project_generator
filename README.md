@@ -57,10 +57,10 @@ name_of_modules3
 ...
 
 #Functions
-name_of_modules1 return_type name1(type param1, type param2, ...)
-name_of_modules2 return_type name2(type param1, type param2, ...)
-name_of_modules3 return_type name3(type param1, type param2, ...)
-name_of_modules3 return_type name4(type param1, type param2, ...)
+name_of_modules1 return_type name_of_function1(type param1, type param2, ...)
+name_of_modules2 return_type name_of_function2(type param1, type param2, ...)
+name_of_modules3 return_type name_of_function3(type param1, type param2, ...)
+name_of_modules3 return_type name_of_function4(type param1, type param2, ...)
 ...
 
 #data_structures
@@ -69,8 +69,8 @@ Name_of_structure2
 ...
 
 #errors
-return_type name5(type param1, type param2, ...)
-return_type name6(type param1, type param2, ...)
+return_type name_of_function5(type param1, type param2, ...)
+return_type name_of_function6(type param1, type param2, ...)
 ...
 
 #const
@@ -85,9 +85,9 @@ NAME_OF_MACROS2 (substitution_for_macros2)
 ...
 
 #enums
-Name_of_union1
-Name_of_union2
-Name_of_union3
+Name_of_enum1
+Name_of_enum2
+Name_of_enum3
 ...
 
 #unions
