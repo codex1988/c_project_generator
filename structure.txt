@@ -1,0 +1,162 @@
+project_name/                 # Project name
+├── bin/           	          # Compiled binaries
+├── docs/           	        # Documentation
+│   ├── api/                  # API documentation
+│   ├── user_guide/           # User guide documentation
+│   ├── dev_guide/            # Developer guide documentation
+├── include/       	          # Header files
+|   |── macros.h           # Headers for macros
+|   |── const.h		            # Headers for constants
+│   ├── enum.h                # Headers for enums
+│   ├── data_structure/      # Headers for data structures
+│   ├── error/               # Headers for error handling
+│   ├── module/              # Headers for modular components
+├── obj/                      # Object files (NO SUBDIRECTORIES)
+├── src/                      # Source files
+│   ├── data_structure/      # Custom data structures
+│   ├── error/               # Error handling code (NO SUBDIRECTORIES)
+│   ├── module/              # Modular components
+│   └── main.c                # Main source file
+├── test/         	          # Test files (all test functions are here)
+├── tool/         	          # Build and utility scripts
+├── third_party/   	          # Third-party libraries
+├── .clang-format  	          # Code formatting configuration
+├── .gitignore     	          # Git ignore rules
+├── LICENSE         	        # GNU General Public License v2.0
+├── Makefile                  # Build configuration
+└── README.md                 # Project documentation
+
+
+NOTES:
+- if you want to declare functions you must have at least one module which functions belong to!!!
+
+
+file: entities.txt (syntax)
+========================================================
+#Project_name
+MyAwesomeProject
+
+#Modules
+name_of_modules1
+name_of_modules2
+name_of_modules3
+
+#Functions
+name_of_modules1 return_type name1(type param1, type param2, ...)
+name_of_modules2 return_type name2(type param1, type param2, ...)
+name_of_modules3 return_type name3(type param1, type param2, ...)
+name_of_modules3 return_type name4(type param1, type param2, ...)
+
+#data_structures
+Name_of_structure1
+Name_of_structure2
+
+#errors
+return_type name5(type param1, type param2, ...)
+return_type name6(type param1, type param2, ...)
+
+#const
+type_of_const name_of_const1 = val1
+type_of_const name_of_const2 = val2
+type_of_const name_of_const3 = val3
+
+#macros
+NAME_OF_MACROS1 (substitution_for_macros1)
+NAME_OF_MACROS2 (substitution_for_macros2)
+
+#enums
+Name_of_union1
+Name_of_union2
+Name_of_union3
+
+#unions
+Name_of_union1
+Name_of_union2
+
+###END###
+========================================================
+
+
+file: entities.txt (example)
+========================================================
+#Project_name
+MyAwesomeProject
+
+#Modules
+network
+interface
+database
+logic
+crypto
+
+#Functions
+network int send_data(int socket, const void *data, size_t length)
+network int receive_data(int socket, void *buffer, size_t buffer_size)
+interface void update_display(const char *message) 
+interface int handle_user_input(int input_code)
+database int db_connect(const char *hostname, const char *username, const char *password)  
+database int db_query(const char *query, void *result_set)
+logic bool is_prime(int number)
+logic int calculate_factorial(int n)
+crypto int encrypt_data(const unsigned char *data, size_t data_len, unsigned char *encrypted)  
+crypto int decrypt_data(const unsigned char *encrypted, size_t encrypted_len, unsigned char *decrypted)
+
+#data_structures
+Date
+Graph
+Tree
+LinkedList
+Stack
+Queue
+HashMap
+
+#errors
+void handle_error(const char *message, int exit_code)
+void log_and_exit(const char *message, const char *log_file)  
+int get_error_code(const char *message)
+void throw_custom_error(int error_code, const char *message)  
+void custom_warning(const char *message)
+
+#const
+int pi = 3.14
+int e = 2.718
+
+#macros
+DOUBLE(x) ((x * 2) + (x * 2))
+MAX_VALUE 100
+
+#enums
+Color
+Direction
+Bool
+
+#unions
+Data
+
+###END###
+========================================================
+
+
+file: entities.txt (minimal structure) 
+========================================================
+#Project_name
+MyAwesomeProject
+
+#Modules
+
+#Functions
+
+#data_structures
+
+#errors
+
+#const
+
+#macros
+
+#enums
+
+#unions
+
+###END###
+========================================================
