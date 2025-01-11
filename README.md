@@ -16,15 +16,22 @@ The project suggest:
 
 >Relatively out-dated tooling in the old-school part of modern software development (particularly in, so-called, "unsafe languages" like C and C++) made the situation much worse than it could have been. For example, the Rust ecosystem is a great example of a user-friendly, modern, and well-engineered approach.  Convince newcomers to start their journey with C (or even with C++) notoriously hard because safe and modern programming languages (to be frankly) are a better choice. But all of them are built on top of or largely depend on C. To mitigate issues with creating and configuring C (self-study and pet) projects, this script was created.
 
+---
+
 ## Getting Started
 
 ### Prerequisites
 
-- Linux or WSL (Windows Subsystem for Linux, maybe, not tested)
-- Bash shell
-- GCC compiler
-- Make build system
-- [Mold linker](https://github.com/rui314/mold) (optional but recommended)
+- Bash shell `sudo apt install bash`
+- GCC compiler `sudo apt install build-essential`
+- GDB debugger `sudo apt install gdb`
+- Make build system `sudo apt install make`
+- Clang-format `sudo apt install clang-format` (optional but recommended)
+- [Mold linker](https://github.com/rui314/mold) (optional but recommended).
+If you prefer not to install mold linker, you must delete flag "-fuse-ld=mold" in Makefile of your project to be compiled successfully
+- [VS Code](https://code.visualstudio.com/) (optional but recommended)
+- [Fish shell](https://fishshell.com/) `sudo apt install fish` (optional but recommended)
+- Linux (Debian Sid, optional but recommended) or WSL (Windows Subsystem for Linux, maybe, not tested)
 
 ### Basic Usage
 
@@ -186,3 +193,9 @@ make help   # Show available commands
 This project was created in tight collaboration with neural networks : Claude 3.5 Sonnet, ChatGPT and Grok. The list is arranged in order of value and amount of code generated.
 The process took an infinite amount of small, manually revised, and tested step-by-step operations. Nobody's perfect—neither I, nor shell scripts, nor networks. So, be prepared to find bugs and errors (especially when editing "entities.txt " carelessly).
 At the very least, deep integration of AI into software development and engineering is inevitable. The sooner you accept it, the better. But, on the other hand, at the moment, without your own knowledge and foundation, programming and problem-solving skills, Linux-user experience and the English language - all networks are rather useless. You can make sure of it quickly as soon as you get started on a project, a little more than 100 lines of code without actually understanding what's going on. So, be a wise and eager learner. Let yourself be a part of the future instead of remaining stuck in the past. And learn C (after that, Python and JavaScript will be a pleasant walk). When done, dive into Rust.
+
+---
+
+## Afterwords
+
+There are no tools and environments capable of eliminating a reasonable desire to use modern languages in new projects and while learning process. Also, there are no tools and environments capable of eliminating an unreasonable desire of a language community not to set up its own standardized development ecosystem that are universal, easy-to-use and efficient. In addition to that, there are no tools or environments capable of eliminating legacy and backward compatibility problems. But mere presence of a simple logic structure, best practices, modern IDE (linters, language servers, AI support, shell), test-driven approach and a decent level of your own fundamental knowledge can make you code efficient and solid in any language.
