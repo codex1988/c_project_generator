@@ -2,19 +2,52 @@
 MyAwesomeProject
 
 #Modules
+network
+interface
+database
+logic
+crypto
 
 #Functions
+network int send_data(int socket, const void *data, size_t length)
+network int receive_data(int socket, void *buffer, size_t buffer_size)
+interface void update_display(const char *message) 
+interface int handle_user_input(int input_code)
+database int db_connect(const char *hostname, const char *username, const char *password)  
+database int db_query(const char *query, void *result_set)
+logic bool is_prime(int number)
+logic int calculate_factorial(int n)
+crypto int encrypt_data(const unsigned char *data, size_t data_len, unsigned char *encrypted)  
+crypto int decrypt_data(const unsigned char *encrypted, size_t encrypted_len, unsigned char *decrypted)
 
 #data_structures
+Date
+Graph
+Tree
+LinkedList
+Stack
+Queue
+HashMap
 
 #errors
+void handle_error(const char *message, int exit_code)
+void log_and_exit(const char *message, const char *log_file)  
+int get_error_code(const char *message)
+void throw_custom_error(int error_code, const char *message)  
+void custom_warning(const char *message)
 
 #const
+int pi = 3.14
+int e = 2.718
 
 #macros
+DOUBLE(x) ((x * 2) + (x * 2))
+MAX_VALUE 100
 
 #enums
+Color
+Direction
+Bool
 
 #unions
-
-###END###
+Data

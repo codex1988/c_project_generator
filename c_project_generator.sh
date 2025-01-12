@@ -145,28 +145,40 @@ EOL
     cat > "${base_dir}/Makefile" << 'EOL'
 # Compiler settings
 CC = gcc
-CFLAGS = -Wall -Wextra -Wpedantic -ggdb -std=c11 -Iinclude
+CFLAGS = -Wall -Wextra -Wpedantic -std=c11 -Iinclude
 LDFLAGS = -fuse-ld=mold
+
+# Debug settings
+DEBUG_CFLAGS = -ggdb3 -O0 -DDEBUG
 
 # Directories
 SRC_DIR = src
 OBJ_DIR = obj
 BIN_DIR = bin
 TEST_DIR = test
+DEBUG_OBJ_DIR = obj/debug
+DEBUG_BIN_DIR = bin/debug
 
 # Find all source files
 SRCS = $(shell find $(SRC_DIR) -name '*.c')
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+DEBUG_OBJS = $(SRCS:$(SRC_DIR)/%.c=$(DEBUG_OBJ_DIR)/%.o)
 
 # Test sources and binaries
 TEST_SRCS = $(wildcard $(TEST_DIR)/*.c)
 TEST_BINS = $(TEST_SRCS:$(TEST_DIR)/%.c=$(BIN_DIR)/%)
+DEBUG_TEST_BINS = $(TEST_SRCS:$(TEST_DIR)/%.c=$(DEBUG_BIN_DIR)/%)
 
-# Main target
+# Main targets
 TARGET = $(BIN_DIR)/main
+DEBUG_TARGET = $(DEBUG_BIN_DIR)/main
 
 # Default target
 all: create_dirs $(TARGET)
+
+# Debug target
+debug: CFLAGS += $(DEBUG_CFLAGS)
+debug: create_debug_dirs $(DEBUG_TARGET)
 
 # Ensure necessary directories exist
 create_dirs:
@@ -174,8 +186,17 @@ create_dirs:
 	@mkdir -p $(OBJ_DIR)
 	@find $(SRC_DIR) -type d -exec mkdir -p $(OBJ_DIR)/{} \;
 
+create_debug_dirs:
+	@mkdir -p $(DEBUG_BIN_DIR)
+	@mkdir -p $(DEBUG_OBJ_DIR)
+	@find $(SRC_DIR) -type d -exec mkdir -p $(DEBUG_OBJ_DIR)/{} \;
+
 # Compile source files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(DEBUG_OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -183,13 +204,23 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 $(TARGET): $(OBJS)
 	$(CC) $(OBJS) $(LDFLAGS) -o $@
 
+$(DEBUG_TARGET): $(DEBUG_OBJS)
+	$(CC) $(DEBUG_OBJS) $(LDFLAGS) -o $@
+
 # Compile and link test files
 $(BIN_DIR)/%: $(TEST_DIR)/%.c $(filter-out $(OBJ_DIR)/main.o,$(OBJS))
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
+$(DEBUG_BIN_DIR)/%: $(TEST_DIR)/%.c $(filter-out $(DEBUG_OBJ_DIR)/main.o,$(DEBUG_OBJS))
+	@mkdir -p $(DEBUG_BIN_DIR)
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+
 # Build all tests
 tests: create_dirs $(TEST_BINS)
+
+debug-tests: CFLAGS += $(DEBUG_CFLAGS)
+debug-tests: create_debug_dirs $(DEBUG_TEST_BINS)
 
 # Run all tests
 test: tests
@@ -198,34 +229,38 @@ test: tests
 		$$test || exit 1; \
 	done
 
-# Run the main program (ensure rebuild if needed)
+debug-test: debug-tests
+	@for test in $(DEBUG_TEST_BINS); do \
+		echo "Running $$test..."; \
+		$$test || exit 1; \
+	done
+
+# Run the main program
 run: all
 	@echo "Running $(TARGET)..."
 	@$(TARGET)
+
+debug-run: debug
+	@echo "Running $(DEBUG_TARGET)..."
+	@$(DEBUG_TARGET)
 
 # Clean build files
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
-# Debug information (optional)
-debug:
-	@echo "Source files: $(SRCS)"
-	@echo "Object files: $(OBJS)"
-	@echo "Test sources: $(TEST_SRCS)"
-	@echo "Test binaries: $(TEST_BINS)"
-
 # Show help
 help:
 	@echo "Available targets:"
-	@echo "  all      : Build main program (default)"
-	@echo "  clean    : Remove all built files"
-	@echo "  run      : Build and launch the project if needed"
-	@echo "  test     : Build and run all tests"
-	@echo "  tests    : Build all tests"
-	@echo "  debug    : Show debug information"
-	@echo "  help     : Show this help message"
+	@echo "  all         : Build main program (default)"
+	@echo "  debug       : Build main program with debug symbols"
+	@echo "  clean       : Remove all built files"
+	@echo "  run         : Build and launch the project"
+	@echo "  debug-run   : Build and launch with debug symbols"
+	@echo "  test        : Build and run all tests"
+	@echo "  debug-test  : Build and run all tests with debug symbols"
+	@echo "  help        : Show this help message"
 
-.PHONY: all create_dirs clean run test tests debug help
+.PHONY: all debug create_dirs create_debug_dirs clean run debug-run test debug-test tests debug-tests help
 EOL
 
 # Create a simple main.c
