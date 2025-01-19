@@ -146,7 +146,7 @@ EOL
 # Compiler settings
 CC = gcc
 CFLAGS = -Wall -Wextra -Wpedantic -std=c11 -Wconversion -Wshadow -Wfloat-equal -Wformat=2 -Wstrict-overflow=5 -g -fsanitize=undefined -ftrapv -fstack-protector-strong -Iinclude
-LDFLAGS = -fuse-ld=mold
+LDFLAGS = -fuse-ld=mold -fsanitize=undefined
 
 # Debug settings
 DEBUG_CFLAGS = -ggdb3 -O0 -DDEBUG
