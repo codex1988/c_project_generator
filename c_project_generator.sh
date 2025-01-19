@@ -145,7 +145,7 @@ EOL
     cat > "${base_dir}/Makefile" << 'EOL'
 # Compiler settings
 CC = gcc
-CFLAGS = -Wall -Wextra -Wpedantic -std=c11 -Iinclude
+CFLAGS = -Wall -Wextra -Wpedantic -std=c11 -Wconversion -Wshadow -Wfloat-equal -Wformat=2 -Wstrict-overflow=5 -g -Iinclude
 LDFLAGS = -fuse-ld=mold
 
 # Debug settings
